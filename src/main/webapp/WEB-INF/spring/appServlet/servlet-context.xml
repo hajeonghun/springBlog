@@ -26,6 +26,8 @@
 		mapping="/include/**"></resources>
 	<resources location="WEB-INF/views/images/"
 		mapping="/images/**"></resources>
+	<resources location="WEB-INF/views/ckeditor/"
+		mapping="/ckeditor/**"></resources>
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
@@ -48,9 +50,21 @@
 	<!-- String uploadPath=new String("d:/upload");처럼 자바코드로 가능하지만 태그에 선언해놓는게 
 		좋음. 서버에 올라올때 자동으로 등록되기 때문에 -->
 	<beans:bean id="uploadPath" class="java.lang.String">
-		<beans:constructor-arg value="d:/upload" />
+		<beans:constructor-arg value="e:/upload" />
 	</beans:bean>
 
+	<beans:bean id="loginInterceptor"
+		class="com.example.spring02.interceptor.LoginInterceptor">
+	</beans:bean>
+	<interceptors>
+		<interceptor>
+			<mapping path="/board/write.do" />
+			<mapping path="/board/insert.do" />
+			<mapping path="/board/update.do" />
+			<mapping path="/board/delete.do" />
+			<beans:ref bean="loginInterceptor" />
+		</interceptor>
+	</interceptors>
 
 
 </beans:beans>

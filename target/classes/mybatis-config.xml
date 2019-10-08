@@ -6,10 +6,18 @@
 
 	<typeAliases>
 
-	<typeAlias
-		type="com.example.spring02.model.member.dto.MemberDTO"
-		alias="memberDto" />
+		<typeAlias
+			type="com.example.spring02.model.member.dto.MemberDTO"
+			alias="memberDto" />
+		<typeAlias
+			type="com.example.spring02.model.shop.dto.CartDTO" alias="cartDto" />
 
+		<typeAlias
+			type="com.example.spring02.model.board.dto.BoardDTO" alias="boardDto" />
+			
+		<typeAlias
+			type="com.example.spring02.model.board.dto.ReplyDTO" alias="replyDto" />	
+			
 	</typeAliases>
 
 </configuration>

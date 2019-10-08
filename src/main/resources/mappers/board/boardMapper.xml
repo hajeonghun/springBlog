@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="board">
+	<select id="listAll" resultType="boardDto">
+		select *
+		from (
+			select rownum as rn, A.*
+			from (
+			select bno,title,writer,name,regdate,viewcnt
+			from board b, member m
+			where b.writer=m.userid
+			order by bno desc
+			) A
+		) where rn between #{start} and #{end}
+	</select>
+	
+	<select id="countArticle" resultType="int">
+		select count(*)
+		from board
+	</select>
+	
+
+	<insert id="insert">
+		insert into board(bno,title,content,writer) values
+		(seq_board.nextval, #{title},#{content},#{writer})
+	</insert>
+	<!-- 조회수 증가 처리 -->
+	<update id="increaseViewcnt">
+		update board set viewcnt=viewcnt+1
+		where bno=#{bno}
+	</update>
+	
+	<!-- 게시글 상세 조회 -->
+	<select id="read" resultType="boardDto">
+		select bno,title,b.regdate,content,viewcnt,name,writer
+		from board b, member m
+		where b.writer=m.userid and bno=#{bno}
+	</select>
+	
+	<update id="update">
+		update board 
+		set title=#{title}, content=#{content}
+		where bno=#{bno}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
